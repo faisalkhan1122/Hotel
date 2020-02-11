@@ -1,0 +1,1 @@
+$(window).on("load",function(){preloaderFadeOutTime=500,function(){$(".spinner-wrapper").fadeOut(preloaderFadeOutTime)}()});
