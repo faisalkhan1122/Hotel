@@ -6,6 +6,43 @@ var bodyParser= require('body-parser');
 var mysql= require('mysql');
 var fileUpload=require('express-fileupload');
 
+// importing Session,logins,cookies middlewares
+var session = require('express-session');
+ var cookieParser = require('cookie-parser');
+
+//*** Settng express session */
+// Express session
+app.use(session({
+    secret: "insideNow",
+    resave: false,
+    saveUninitialized: false
+  }))
+
+
+// Deserialization on SQL  --match for authentication of user 
+app.use(function (req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    let query = 'SELECT * FROM admin where id = '+ req.session.userId;
+    db.query(query, (err, user) => {
+        if(user){
+            // console.log(user[0].id)
+            res.locals.currentUser= user;
+        }
+        res.locals.currentUser= user;
+
+    next();
+    });
+});
+
+
+
+
+ //************* */
+
+
+
+
+
 
 
 app.set('view engine','ejs'); // configuring templeting engine
