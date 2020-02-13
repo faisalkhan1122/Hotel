@@ -30,7 +30,7 @@ var query=db.query(select,(err,result)=>
             sessionData = req.session;
             sessionData = result[0];
               req.session.loggedin = true;
-         //    req.session.username = username;
+             req.session.username = loginName;
               req.session.userId = result[0].id;
         //     console.log(result[0].id);
            
@@ -49,5 +49,15 @@ router1.get('/login',(req,res)=>
 {
     res.render('admin/login');
 })
+
+
+//  route for logout 
+
+router1.get('/logout',(req,res)=>
+{
+    req.session.destroy();
+    res.redirect('/login');
+})
+
 
 module.exports=router1;

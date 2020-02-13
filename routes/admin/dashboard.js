@@ -16,10 +16,23 @@ router1.use(contactdetails);
 router1.use(addRooms);
 router1.use(showRooms);
 router1.use(login);
-router1.get('/admin',(req,res)=>
+router1.get('/admin',isLoggedIn,(req,res)=>
 {
 
 res.render('admin/index');
 })
+
+
+
+// aunthetic route sectret 
+
+function isLoggedIn(req, res, next) {
+    if (req.session.username) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 
 module.exports=router1;

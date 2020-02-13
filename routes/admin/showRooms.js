@@ -7,7 +7,7 @@ router1.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-router1.get('/Showrooms',(req,res)=>
+router1.get('/Showrooms',isLoggedIn,(req,res)=>
 {
 
     var select="SELECT * from add_rooms where status='1'";
@@ -33,5 +33,16 @@ router1.get('/deleteRoom/:id',(req,res)=>
         res.redirect('/Showrooms');
     })
 })
+
+
+// aunthetic route sectret 
+
+function isLoggedIn(req, res, next) {
+    if (req.session.username) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+  }
 
 module.exports=router1;

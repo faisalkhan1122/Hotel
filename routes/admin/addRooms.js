@@ -52,12 +52,23 @@ router1.post('/addingRooms',(req,res)=>
 
 })
 
-router1.get('/addrooms',(req,res)=>
+router1.get('/addrooms',isLoggedIn,(req,res)=>
 {
 
     res.render('admin/add_rooms');
 })
 
+
+
+// aunthetic route sectret 
+
+function isLoggedIn(req, res, next) {
+  if (req.session.username) {
+      return next();
+  } else {
+      res.redirect('/login');
+  }
+}
 
 
 module.exports=router1;
